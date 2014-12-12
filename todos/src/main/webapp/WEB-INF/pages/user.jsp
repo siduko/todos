@@ -10,10 +10,33 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>User info</title>
-
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+	function search(){
+		var txtsearch = $("#txtsearch").val();
+		var userName = $("#userName");
+		var password = $("#password");
+		 $.ajax({
+		        type: "GET",
+		        url: "search",
+		        data: "username=" + txtsearch ,
+		        success: function(response){
+		            // we have the response
+		              userName.val(response.userName);
+		              password.val(response.password);
+		         },
+		         error: function(e){
+		             alert('Error: ' + e);
+		         }
+		    });
+	}
+</script>
 </head>
 <body>
-	<h1>${user.userName}</h1></br>
-	<h1>${user.fullName}</h1></br>
+	<h1 id="userName">${user.userName}</h1></br>
+	<h1 id="password">${user.fullName}</h1></br>
+	
+	<input id="txtsearch" type="text" placeholder="search..."/>
+	<input type="button" onclick="search()" value="search"/>
 </body>
 </html>

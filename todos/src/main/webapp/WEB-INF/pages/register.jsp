@@ -35,5 +35,13 @@ color:red;
 	<input type="text" name="email" placeholder="email"/><form:errors path="email" cssClass="error"/></br>
 	<input type="submit" value="Register"/>
 </form:form>
+<input type="text">
+<input type="button" onclick="">
 </body>
+<script type="text/javascript">
+function loadSearch()
+{
+	
+}
+</script>
 </html>

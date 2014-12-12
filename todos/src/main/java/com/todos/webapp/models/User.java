@@ -1,5 +1,7 @@
 package com.todos.webapp.models;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -8,7 +10,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="users")
-public class User {
+public class User implements Serializable{
+	private static final long serialVersionUID = -7788619177798333712L;
+	
 	@Id
 	@NotEmpty
 	@NotNull

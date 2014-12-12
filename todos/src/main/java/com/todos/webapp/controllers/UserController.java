@@ -7,15 +7,21 @@ import javax.validation.Valid;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.todos.webapp.models.JsonResponse;
 import com.todos.webapp.models.User;
 
 @Controller
@@ -44,6 +50,14 @@ public class UserController {
 		// return form success view
 		return "usersuccess";
 
+	}
+
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public @ResponseBody User searchUserInfo(@RequestParam("username") String username,
+			Model model) {
+		Query searchUserQuery = new Query(Criteria.where("_id").is(username));
+		User user = mongoOperation.findOne(searchUserQuery, User.class);
+		return user;
 	}
 
 	@RequestMapping(value = "signup", method = RequestMethod.POST)
