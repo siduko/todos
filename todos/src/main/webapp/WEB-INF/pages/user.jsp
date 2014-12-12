@@ -9,10 +9,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>User info</title>
 
 </head>
 <body>
-	<h1>${msg}</h1>
+	<h1>${user.userName}</h1></br>
+	<h1>${user.fullName}</h1></br>
 </body>
 </html>

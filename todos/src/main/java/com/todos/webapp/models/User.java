@@ -1,12 +1,15 @@
 package com.todos.webapp.models;
 
-import java.util.List;
-
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection="users")
 public class User {
+	@Id
 	@NotEmpty
 	@NotNull
 	private String userName;
@@ -14,26 +17,29 @@ public class User {
 	@NotEmpty
 	@NotNull
 	private String password;
+	
+	@NotEmpty
 	private String address;
-	private String firstName;
-	private String lastName;
+	
+	@NotEmpty
+	private String fullName;
+	
+	@Pattern(regexp="0[0-9]{9,11}|\\+[0-9]{9,12}")
 	private String phone;
-	private boolean receiveNewsletter;
+	
+	@Pattern(regexp="[0-9a-zA-Z]+[._]?[0-9a-zA-Z]+@[0-9a-zA-Z]+\\.[0-9a-zA-Z]+")
+	private String email;
+	
+	private String permission;
 
 	public User() {
-	}
-
-	public User(String userName, String password, String address,
-			String firstName, String lastName, String phone,
-			boolean receiveNewsletter) {
-		super();
-		this.userName = userName;
-		this.password = password;
-		this.address = address;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.phone = phone;
-		this.receiveNewsletter = receiveNewsletter;
+		this.userName = "";
+		this.password = "";
+		this.address = "";
+		this.fullName = "";
+		this.phone = "";
+		this.email = "";
+		this.permission = "user";
 	}
 
 	public String getUserName() {
@@ -60,20 +66,12 @@ public class User {
 		this.address = address;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getFullName() {
+		return fullName;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 	public String getPhone() {
@@ -84,34 +82,22 @@ public class User {
 		this.phone = phone;
 	}
 
-	public boolean isReceiveNewsletter() {
-		return receiveNewsletter;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setReceiveNewsletter(boolean receiveNewsletter) {
-		this.receiveNewsletter = receiveNewsletter;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public interface IUserService {
-
-		public abstract long countAllUsers();
-
-		public abstract void deleteUser(User user);
-
-		public abstract User findUser(String id);
-
-		public abstract List<User> findAllUsers();
-
-		public abstract List<User> findUserEntries(int firstResult, int maxResults);
-
-		public abstract User findByUsername(String username);
-
-		public abstract void saveUser(User user);
-
-		public abstract User updateUser(User user);
-
-		public abstract List<User> getUserRoles(String id);
-
+	public String getPermission() {
+		return permission;
 	}
+
+	public void setPermission(String permission) {
+		this.permission = permission;
+	}
+	
+	
 
 }

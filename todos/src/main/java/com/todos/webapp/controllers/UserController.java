@@ -4,6 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +21,11 @@ import com.todos.webapp.models.User;
 @Controller
 @RequestMapping(value = "user")
 public class UserController {
+
+	ApplicationContext ctx = new GenericXmlApplicationContext(
+			"SpringConfig.xml");
+	MongoOperations mongoOperation = (MongoOperations) ctx
+			.getBean("mongoTemplate");
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String intiForm(Model model) {
@@ -37,19 +45,19 @@ public class UserController {
 		return "usersuccess";
 
 	}
-	
-	@RequestMapping(value="signup",method = RequestMethod.POST)
+
+	@RequestMapping(value = "signup", method = RequestMethod.POST)
 	public String signup(@Valid @ModelAttribute("user") User user,
 			BindingResult result, SessionStatus status) {
 
-		if(result.hasErrors())
+		if (result.hasErrors())
 			return "userSignup";
-		
+
 		return "userSuccess";
 
 	}
-	
-	@RequestMapping(value="signup",method = RequestMethod.GET)
+
+	@RequestMapping(value = "signup", method = RequestMethod.GET)
 	public String viewSignUp() {
 		return "userSignup";
 	}
