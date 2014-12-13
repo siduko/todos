@@ -24,15 +24,8 @@ import com.todos.webapp.repositories.UserRepository;
 @RequestMapping(value = "user")
 public class UserController {
 	
-//	private static final Logger logger = Logger.getLogger(UserController.class);
-
-//	ApplicationContext ctx = new GenericXmlApplicationContext(
-//			"spring-data-config.xml");
-//	MongoOperations mongoOperation = (MongoOperations) ctx
-//			.getBean("mongoTemplate");
-//	
-//	@Autowired
-//	UserRepository userRepository = ctx.getBean("userRepository",UserRepository.class);
+	private static final Logger logger = Logger.getLogger(UserController.class);
+	
 	@Autowired
 	UserRepository userRepository;
 
@@ -58,11 +51,8 @@ public class UserController {
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public @ResponseBody User searchUserInfo(@RequestParam("username") String username,
 			Model model) {
-		//Query searchUserQuery = new Query(Criteria.where("_id").is(username));
-		//User user = mongoOperation.findOne(searchUserQuery, User.class);
 		User user = userRepository.findByUserName(username);
 		return user;
-		//return null;
 	}
 
 	@RequestMapping(value = "signup", method = RequestMethod.POST)

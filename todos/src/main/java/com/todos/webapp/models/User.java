@@ -1,6 +1,7 @@
 package com.todos.webapp.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -35,6 +36,8 @@ public class User implements Serializable{
 	private String email;
 	
 	private String permission;
+	
+	private ArrayList<Note> notes;
 
 	public User() {
 		this.userName = "";
@@ -44,6 +47,7 @@ public class User implements Serializable{
 		this.phone = "";
 		this.email = "";
 		this.permission = "user";
+		notes = new ArrayList<Note>();
 	}
 
 	public String getUserName() {
@@ -102,6 +106,12 @@ public class User implements Serializable{
 		this.permission = permission;
 	}
 	
-	
+	public ArrayList<Note> getNotes() {
+		return notes;
+	}
+
+	public void setNotes(ArrayList<Note> notes) {
+		this.notes = notes;
+	}
 
 }

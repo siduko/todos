@@ -3,6 +3,7 @@ package com.todos.webapp.controllers;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,16 +13,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.todos.webapp.models.User;
+import com.todos.webapp.repositories.UserRepository;
 
 @Controller
 public class MainController {
 	
-//	private static final Logger logger = Logger.getLogger(MainController.class);
-
-//	ApplicationContext ctx = new GenericXmlApplicationContext(
-//			"spring-data-config.xml");
-//	MongoOperations mongoOperation = (MongoOperations) ctx
-//			.getBean("mongoTemplate");
+	private static final Logger logger = Logger.getLogger(MainController.class);
+	
+	@Autowired
+	UserRepository userRepository;
 
 	@RequestMapping(value = { "/welcome**", "/" }, method = RequestMethod.GET)
 	public String welcomeView(Model model) {
@@ -46,18 +46,16 @@ public class MainController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@ModelAttribute("user") @Valid User newUser,
 			BindingResult result, Model model) {
-//		if (result.hasErrors()) {
-//			model.addAttribute("msg",
-//					"Check your input, because it not correct");
-//			model.addAttribute("error", "Error");
-//			return "register";
-//		} else {
-//			mongoOperation.insert(newUser);
-//		}
-//		Query searchUserByUserNameQuery = new Query(Criteria.where("_id").is(
-//				newUser.getUserName()));
-//		model.addAttribute("user",
-//				mongoOperation.findOne(searchUserByUserNameQuery, User.class));
+		if (result.hasErrors()) {
+			model.addAttribute("msg",
+					"Check your input, because it not correct");
+			model.addAttribute("error", "Error");
+			return "register";
+		} else {
+			userRepository.save(newUser);
+		}
+		model.addAttribute("user",
+				userRepository.findByUserName(newUser.getUserName()));
 		return "user";
 	}
 
