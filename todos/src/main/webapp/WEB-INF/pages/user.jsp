@@ -18,12 +18,12 @@
 		var password = $("#password");
 		 $.ajax({
 		        type: "GET",
-		        url: "search",
+		        url: "user/search",
 		        data: "username=" + txtsearch ,
 		        success: function(response){
 		            // we have the response
-		              userName.val(response.userName);
-		              password.val(response.password);
+		              userName.html(response.userName);
+		              password.html(response.password);
 		         },
 		         error: function(e){
 		             alert('Error: ' + e);
