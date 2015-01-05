@@ -8,12 +8,12 @@ public class Note {
 	
 	@NotNull
 	private String title;
-	private String note;
+	private String content;
 	private String remindTime;
 	public Note(String title, String note, String remindTime) {
 		super();
 		this.title = title;
-		this.note = note;
+		this.content = note;
 		this.remindTime = remindTime;
 	}
 	public String getTitle() {
@@ -23,10 +23,10 @@ public class Note {
 		this.title = title;
 	}
 	public String getNote() {
-		return note;
+		return content;
 	}
 	public void setNote(String note) {
-		this.note = note;
+		this.content = note;
 	}
 	public String getRemindTime() {
 		return remindTime;

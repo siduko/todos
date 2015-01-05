@@ -16,6 +16,7 @@
 		<spring.data.version>1.6.1.RELEASE</spring.data.version>
 		<jackson.databind-version>2.2.3</jackson.databind-version>
 		<log4j.version>1.2.14</log4j.version>
+		<sonar.language>java</sonar.language>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -125,7 +126,16 @@
 		</dependency>
 
 	</dependencies>
-	<build>
-		<finalName>todos</finalName>
-	</build>
+<!-- 	<build> -->
+<!-- 		<finalName>todos</finalName> -->
+<!-- 		<pluginManagement> -->
+<!-- 			<plugins> -->
+<!-- 				<plugin> -->
+<!-- 					<groupId>org.codehaus.mojo</groupId> -->
+<!-- 					<artifactId>sonar-maven-plugin</artifactId> -->
+<!-- 					<version>2.3</version> -->
+<!-- 				</plugin> -->
+<!-- 			</plugins> -->
+<!-- 		</pluginManagement> -->
+<!-- 	</build> -->
 </project>

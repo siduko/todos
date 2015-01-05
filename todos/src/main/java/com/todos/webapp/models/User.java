@@ -2,6 +2,7 @@ package com.todos.webapp.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -37,7 +38,7 @@ public class User implements Serializable{
 	
 	private String permission;
 	
-	private ArrayList<Note> notes;
+	private List<Note> notes;
 
 	public User() {
 		this.userName = "";
@@ -106,11 +107,11 @@ public class User implements Serializable{
 		this.permission = permission;
 	}
 	
-	public ArrayList<Note> getNotes() {
+	public List<Note> getNotes() {
 		return notes;
 	}
 
-	public void setNotes(ArrayList<Note> notes) {
+	public void setNotes(List<Note> notes) {
 		this.notes = notes;
 	}
 

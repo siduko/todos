@@ -1,15 +1,9 @@
 package com.todos.webapp.controllers;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,8 +18,6 @@ import com.todos.webapp.repositories.UserRepository;
 @RequestMapping(value = "user")
 public class UserController {
 	
-	private static final Logger logger = Logger.getLogger(UserController.class);
-	
 	@Autowired
 	UserRepository userRepository;
 
@@ -37,8 +29,7 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String processSubmit(@ModelAttribute("user") User user,
-			BindingResult result, SessionStatus status) {
+	public String processSubmit(SessionStatus status) {
 
 		// clear the command object from the session
 		status.setComplete();
@@ -49,19 +40,17 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public @ResponseBody User searchUserInfo(@RequestParam("username") String username,
-			Model model) {
-		User user = userRepository.findByUserName(username);
-		return user;
+	@ResponseBody
+	public User searchUserInfo(@RequestParam("username") String username) {
+		return userRepository.findByUserName(username);
 	}
 
 	@RequestMapping(value = "signup", method = RequestMethod.POST)
-	public String signup(@Valid @ModelAttribute("user") User user,
-			BindingResult result, SessionStatus status) {
+	public String signup(BindingResult result) {
 
-		if (result.hasErrors())
+		if (result.hasErrors()) {
 			return "userSignup";
-
+		}
 		return "userSuccess";
 
 	}
@@ -72,30 +61,26 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "add")
-	public ModelAndView add(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ModelAndView add() throws Exception {
 		return new ModelAndView("user", "msg", "add() method");
 	}
 
 	@RequestMapping(value = "delete")
-	public ModelAndView delete(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ModelAndView delete() throws Exception {
 
 		return new ModelAndView("user", "msg", "delete() method");
 
 	}
 
 	@RequestMapping(value = "update")
-	public ModelAndView update(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ModelAndView update() throws Exception {
 
 		return new ModelAndView("user", "msg", "update() method");
 
 	}
 
 	@RequestMapping(value = "list")
-	public ModelAndView list(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ModelAndView list() throws Exception {
 
 		return new ModelAndView("user", "msg", "list() method");
 
